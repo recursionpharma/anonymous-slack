@@ -1,1 +1,1 @@
-web: anonymous-slack -port=$PORT
+web: main -port=$PORT
