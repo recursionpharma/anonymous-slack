@@ -70,18 +70,17 @@ func readAnonymousMessage(r *http.Request) string {
 		return "Failed; message should be like: /anon @ashwin hey what's up?"
 	}
 	user := matches[1]
-	cleanedMsg := strings.TrimSpace(matches[2])
-	err = sendAnonymousMessage(user, cleanedMsg)
+	msg = strings.TrimSpace(matches[2])
+	err = sendAnonymousMessage(user, msg)
 	if err != nil {
 		return "Failed to send message."
 	}
-	return fmt.Sprintf("Anonymously sent your message, [%s], to %s", cleanedMsg, user)
+	return fmt.Sprintf("Anonymously sent [%s] to %s", user, msg)
 }
 
 // sendAnonymousMessage uses an incoming hook to Direct Message
 // the given user the message, from a random animal.
 func sendAnonymousMessage(username, message string) error {
-	return nil
 	url := os.Getenv(webhookConfig)
 	payload, err := json.Marshal(slackMsg{
 		Text:     message,
