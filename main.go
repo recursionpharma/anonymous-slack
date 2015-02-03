@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"flag"
 	"fmt"
+	"math/rand"
 	"net/http"
 	"os"
 	"regexp"
@@ -10,7 +13,8 @@ import (
 )
 
 const (
-	tokenConfig = "INCOMING_SLACK_TOKEN"
+	tokenConfig   = "INCOMING_SLACK_TOKEN"
+	webhookConfig = "INCOMING_SLACK_WEBHOOK"
 	// Incoming payload form will have the following keys:
 	// (See: https://api.slack.com/slash-commands)
 	keyToken       = "token"
@@ -22,6 +26,12 @@ const (
 	keyCommand     = "command"
 	keyText        = "text"
 )
+
+type slackMsg struct {
+	Text     string `json:"text"`
+	Username string `json:"username"` // Anonymous animal sender
+	Channel  string `json:"channel"`  // Recipient
+}
 
 var (
 	port int
@@ -49,10 +59,10 @@ func readAnonymousMessage(r *http.Request) string {
 	}
 	// Incoming POST's token should match the one set in Heroku
 	if len(r.Form[keyToken]) == 0 || r.Form[keyToken][0] != os.Getenv(tokenConfig) {
-		return "Tokens didn't match."
+		return "Config error."
 	}
 	if len(r.Form[keyText]) == 0 {
-		return ""
+		return "Slack bug; inform the team."
 	}
 	msg := strings.TrimSpace(r.Form[keyText][0])
 	matches := payloadExp.FindStringSubmatch(msg)
@@ -60,8 +70,29 @@ func readAnonymousMessage(r *http.Request) string {
 		return "Failed; message should be like: /anon @ashwin hey what's up?"
 	}
 	user := matches[1]
-	cleanedMsg := matches[2]
+	cleanedMsg := strings.TrimSpace(matches[2])
+	err = sendAnonymousMessage(user, cleanedMsg)
+	if err != nil {
+		return "Failed to send message."
+	}
 	return fmt.Sprintf("Anonymously sent your message, [%s], to %s", cleanedMsg, user)
+}
+
+// sendAnonymousMessage uses an incoming hook to Direct Message
+// the given user the message, from a random animal.
+func sendAnonymousMessage(username, message string) error {
+	return nil
+	url := os.Getenv(webhookConfig)
+	payload, err := json.Marshal(slackMsg{
+		Text:     message,
+		Channel:  username,
+		Username: fmt.Sprintf("an anonymous %s", animals[rand.Intn(len(animals))]),
+	})
+	if err != nil {
+		return err
+	}
+	_, err = http.Post(url, "application/json", bytes.NewBuffer(payload))
+	return err
 }
 
 func main() {
