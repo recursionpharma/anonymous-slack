@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"regexp"
+	"strings"
 )
 
 const (
@@ -33,6 +35,8 @@ var (
 		"orangutan", "otter", "panda", "penguin", "platypus", "python", "pumpkin", "quagga", "rabbit", "raccoon",
 		"rhino", "sheep", "shrew", "skunk", "slow loris", "squirrel", "turtle", "walrus", "wolf", "wolverine", "wombat",
 	}
+	// Username must be first.
+	payloadExp = regexp.MustCompile(`(@[^\s]+):?(.*)`)
 )
 
 // readAnonymousMessage parses the username and re-routes
@@ -47,8 +51,17 @@ func readAnonymousMessage(r *http.Request) string {
 	if len(r.Form[keyToken]) == 0 || r.Form[keyToken][0] != os.Getenv(tokenConfig) {
 		return "Tokens didn't match."
 	}
-	// Just return the message to see if it worked
-	return r.Form[keyText][0]
+	if len(r.Form[keyText]) == 0 {
+		return ""
+	}
+	msg := strings.TrimSpace(r.Form[keyText][0])
+	matches := payloadExp.FindStringSubmatch(msg)
+	if matches == nil {
+		return "Failed; message should be like: /anon @ashwin hey what's up?"
+	}
+	user := matches[1]
+	cleanedMsg := matches[2]
+	return fmt.Sprintf("Anonymously sent your message, [%s], to %s", cleanedMsg, user)
 }
 
 func main() {
