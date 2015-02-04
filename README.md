@@ -15,11 +15,11 @@ Deploy to heroku.
 
     git push heroku master
 
-Success! Now if you direct-message @slackbot with a message like the following:
+Success! Now if you send a message in any channel, public or private, like the following:
 
     /anon @somebodyelse hey, guess who?
 
-@somebodyelse gets a message like this:
+That message will be suppressed, and @somebodyelse gets a message like this:
 
     an anonymous capybara says: hey, guess who?
     
