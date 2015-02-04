@@ -17,7 +17,10 @@ Deploy to heroku.
 
 Success! Now if you direct-message @slackbot with a message like the following:
 
-    /anon @somebodyelse hey this is anonymous
+    /anon @somebodyelse hey, guess who?
 
-A random animal will in turn direct message `@username` with your message. Be
-nice!
+@somebodyelse gets a message like this:
+
+    an anonymous capybara says: hey, guess who?
+    
+Be nice!
