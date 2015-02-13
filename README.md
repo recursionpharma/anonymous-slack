@@ -3,7 +3,7 @@ A service you can upload to Heroku to be able to send anonymous messages to coll
 
 Clone this repository, and create a new heroku app with the Go buildpack: https://github.com/kr/heroku-buildpack-go
 
-    git clone git@github.com/recursionpharma/anonymous-slack.git
+    git clone git@github.com:recursionpharma/anonymous-slack.git
     cd anonymous-slack
     heroku create -b https://github.com/kr/heroku-buildpack-go.git
     
