@@ -10,6 +10,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"time"
 )
 
 const (
@@ -95,6 +96,7 @@ func sendAnonymousMessage(username, message string) error {
 }
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		result := readAnonymousMessage(r)
 		fmt.Fprintf(w, result)
