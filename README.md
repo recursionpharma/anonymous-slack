@@ -1,5 +1,5 @@
 # anonymous-slack
-A Heroku service to send anonymous messages to colleagues on Slack. Your message shows up under the guise of a random animal: `an anonymous aardvark: [your message]`.
+A Heroku service to send anonymous messages to colleagues on Slack. Your message shows up under the guise of a random animal: `an anonymous aardvark says: [your message]`.
 
 As a slack administrator:
 
