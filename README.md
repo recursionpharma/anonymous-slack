@@ -1,7 +1,7 @@
 # anonymous-slack
 A Heroku service to send anonymous messages to colleagues on Slack. Your message shows up under the guise of a random animal: `an anonymous aardvark: [your message]`.
 
-or As a slack administrator:
+As a slack administrator:
 
 Clone this repository, and create a new heroku app with the Go buildpack: https://github.com/kr/heroku-buildpack-go
 
