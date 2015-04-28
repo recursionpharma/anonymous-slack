@@ -76,7 +76,7 @@ func readAnonymousMessage(r *http.Request) string {
 	if err != nil {
 		return "Failed to send message."
 	}
-	return fmt.Sprintf("Anonymously sent %s to [%s]", msg, user)
+	return fmt.Sprintf("Anonymously sent [%s] to %s", msg, user)
 }
 
 // sendAnonymousMessage uses an incoming hook to Direct Message
