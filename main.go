@@ -47,7 +47,7 @@ var (
 		"rhino", "sheep", "shrew", "skunk", "slow loris", "squirrel", "turtle", "walrus", "wolf", "wolverine", "wombat",
 	}
 	// Username must be first.
-	payloadExp = regexp.MustCompile(`(@[^\s]+):?(.*)`)
+	payloadExp = regexp.MustCompile(`([@#][^\s]+):?(.*)`)
 )
 
 // readAnonymousMessage parses the username and re-routes
@@ -76,7 +76,7 @@ func readAnonymousMessage(r *http.Request) string {
 	if err != nil {
 		return "Failed to send message."
 	}
-	return fmt.Sprintf("Anonymously sent [%s] to %s", user, msg)
+	return fmt.Sprintf("Anonymously sent %s to [%s]", msg, user)
 }
 
 // sendAnonymousMessage uses an incoming hook to Direct Message
