@@ -45,7 +45,7 @@ Here is an example for an avatar
 [Docker Image](https://hub.docker.com/r/rounds/10m-annona/) 
 
 [image]: annona.jpg
-[slack_image]: slack.png
+[slack_image]: Slack.png
 [travis image]: https://travis-ci.org/rounds/annona.svg
 [travis]: https://travis-ci.org/rounds/annona
 
