@@ -24,8 +24,9 @@ The channel that the messages will appear in is set set as environment variable:
 
 Success! Now if you send a message in any channel, public or private, like the following:
 
-    /anon hey, guess who?
-
+    /anon Who am I ?
+       
+![Slack Image][slack_image]
 That message will be suppressed, and a message will appear in the SLACK\_CHANNEL\_ID channel
 
 ## Avatars
@@ -44,6 +45,7 @@ Here is an example for an avatar
 [Docker Image](https://hub.docker.com/r/rounds/10m-annona/) 
 
 [image]: annona.jpg
+[slack_image]: slack.png
 [travis image]: https://travis-ci.org/rounds/annona.svg
 [travis]: https://travis-ci.org/rounds/annona
 
