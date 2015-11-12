@@ -1,32 +1,51 @@
-# anonymous-slack
-A Heroku service to send anonymous messages to colleagues on Slack. Your message shows up under the guise of a random animal: `an anonymous aardvark says: [your message]`.
+# annona [![Build Status][travis image]][travis]
+![Annona Image][image]
 
-As a slack administrator:
+A service for posting anonymous messages to a Slack channel. Your message shows up under the guise of a random character.
 
-Clone this repository, and create a new heroku app with the Go buildpack: https://github.com/kr/heroku-buildpack-go
+Based on and [Slacker] (http://slacker.nathanhoad.net/) and [anonymous-slack](https://github.com/recursionpharma/anonymous-slack)
 
-    git clone git@github.com:recursionpharma/anonymous-slack.git
-    cd anonymous-slack
-    heroku create -b https://github.com/kr/heroku-buildpack-go.git
+
+## As a slack administrator:
     
-In Slack integrations, add a Slash command, for example, `/anon` . Set the URL in Slack to your Heroku website URL. The resulting slack "token" should be set as a Heroku environment variable:
+In Slack integrations, add a Slash command, for example, `/anon` . Set the URL in Slack to your service URL. The resulting slack "token" should be set as a environment variable:
 
-    heroku config:set INCOMING_SLACK_TOKEN=XXX
+     INCOMING_SLACK_TOKEN=XXX
 
-Then, in Slack integrations, add a Slash Incoming webhook. The resulting "webhook url" should be set as the Heroku environment variable:
+Then, in Slack integrations, add a Slash Incoming webhook. The resulting "webhook url" should be set as environment variable:
 
-    heroku config:set INCOMING_SLACK_WEBHOOK=https://hooks.slack.com/services/BLAH/BLAH/BLAH
+    INCOMING_SLACK_WEBHOOK=https://hooks.slack.com/services/BLAH/BLAH/BLAH
 
-Deploy to heroku.
+The channel that the messages will appear in is set set as environment variable:
 
-    git push heroku master
+	SLACK_CHANNEL_ID="#anon"
+
+ master
 
 Success! Now if you send a message in any channel, public or private, like the following:
 
-    /anon @somebodyelse hey, guess who?
+    /anon Who am I ?
+       
+![Slack Image][slack_image]
+That message will be suppressed, and a message will appear in the SLACK\_CHANNEL\_ID channel
 
-That message will be suppressed, and @somebodyelse gets a message like this:
+## Avatars
 
-    an anonymous capybara says: hey, guess who?
-    
-Be nice!
+Avatars are in the avatars.json file.
+
+Here is an example for an avatar
+
+	{
+    "username": "Tina",
+    "default_text": "Errrggggggg",
+    "icon_url": "http://i.imgur.com/VxDC1dz.png"
+    },
+  
+
+[Docker Image](https://hub.docker.com/r/rounds/10m-annona/) 
+
+[image]: annona.jpg
+[slack_image]: Slack.png
+[travis image]: https://travis-ci.org/rounds/annona.svg
+[travis]: https://travis-ci.org/rounds/annona
+
