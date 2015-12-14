@@ -3,13 +3,19 @@ A Heroku service to send anonymous messages to colleagues on Slack. Your message
 
 As a slack administrator:
 
-Clone this repository, and create a new Heroku app:
+Clone this repository, enter it and generate the Godeps:
 
     git clone git@github.com:recursionpharma/anonymous-slack.git
     cd anonymous-slack
-    heroku create
+    godep save -r
     
-In Slack integrations, add a Slash command, for example, `/anon` . Set the URL in Slack to your Heroku website URL. The resulting slack "token" should be set as a Heroku environment variable:
+Create a new Heroku app:
+
+    heroku create
+    >>> Creating whispering-cliffs-7437... done, stack is cedar-14
+    >>> https://whispering-cliffs-7437.herokuapp.com/ | https://git.heroku.com/whispering-cliffs-7437.git
+    
+In Slack integrations, add a Slash command, for example, `/anon` . Set the URL in Slack to your Heroku website URL (in our example, `https://whispering-cliffs-7437.herokuapp.com/`). The resulting slack "token" should be set as a Heroku environment variable:
 
     heroku config:set INCOMING_SLACK_TOKEN=XXX
 
