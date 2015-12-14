@@ -3,7 +3,7 @@ A Heroku service to send anonymous messages to colleagues on Slack. Your message
 
 As a slack administrator:
 
-Clone this repository, and create a new Heroku app (Heroku officially supports Go):
+Clone this repository, and create a new Heroku app:
 
     git clone git@github.com:recursionpharma/anonymous-slack.git
     cd anonymous-slack
