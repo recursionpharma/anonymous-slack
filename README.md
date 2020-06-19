@@ -25,7 +25,7 @@ Then, in Slack integrations, add a Slash Incoming webhook. The resulting "webhoo
 
 Deploy to heroku.
 
-    git push heroku master
+    git push heroku trunk
 
 Success! Now if you send a message in any channel, public or private, like the following:
 
